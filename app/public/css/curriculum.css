@@ -1,0 +1,97 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+
+
+body {
+    background-color: gray;
+}
+
+.container {
+    display: flex;
+    margin: 0 auto;
+    flex-direction: column;
+    width: 21.00cm;
+    height: 29.60cm;
+    padding: 2.5cm 2cm 2.5cm 2cm;
+    background-color: white;
+}
+
+.curriculum__header {
+    display: flex;
+    /* height: 100px; */
+
+}
+
+.curriculum__body {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    height: 100%;
+    margin-top: 10px;
+}
+
+.curriculum__infos {
+    gap: 3px;
+    display: flex;
+    flex-direction: column;
+}
+
+.curriculum__infos div {
+    line-height: 12pt;
+}
+
+.curriculum__infos .curriculum__title {
+    margin-bottom: 10pt;
+
+}
+
+.curriculum__dados {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+}
+
+.curriculum__title {
+    font-size: 20pt;
+}
+
+.curriculum__subtitle {
+    font-size: 11pt;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+.curriculum__subtitle::after {
+    display: block;
+    content: ' ';
+    width: 100%;
+    border-bottom: 2px solid black;
+    margin-bottom: 10px;
+}
+
+.curriculum__photo {
+    width: 3.15cm;
+}
+
+.curriculum__text {
+    font-size: 13pt;
+    display: inline-block;
+}
+
+.curriculum__experience div {
+    margin-bottom: 10px;
+}
+
+
+.bold {
+    font-weight: bold;
+}
+
+.block {
+    display: block;
+}

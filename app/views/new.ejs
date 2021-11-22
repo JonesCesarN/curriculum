@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous">
+  <link rel="stylesheet" href="/css/style.css">
+  <title>curriculum</title>
+</head>
+<body>
+  <section>
+    <section class="genero area-genero">
+      <i class="fas fa-female select " data-js="female"> feminino</i>
+      <i class="fas fa-male " data-js="male"> masculino</i>
+    </section>
+    <form action="/curriculo/save" method="post" enctype="multipart/form-data">
+      <span class="wrapp__input area-foto">
+        <div class="form-group" data-js="inputFile">
+          <span class="fileUpload btn btn-success">
+            <span class="upl" >Upload Foto</span>
+            <input type="file" class="upload up" id="up" name="photo" data-js="fileUp"/>
+          </span>
+        </div>
+        <img src="" data-js="Preview" class="preview" style="display: none;">
+        <div class="icone--remove" data-js="remove-preview" style="display: none;">
+          <i class="fas fa-minus-square" data-js="btn-remover"> remover foto</i>
+        </div>
+      </span><!-- wrapp__input -->
+      <span class="wrapp__input area-nome">
+        <input required type="text" class="input" name="nome" data-js="nome" placeholder="nome completo" tabindex="1">
+      </span><!-- wrapp__input -->     
+      <span class="wrapp__input area-nacionalidade">
+        <input type="text" class="input" name="nationality" placeholder="nacionalidade" tabindex="2">
+      </span><!-- wrapp__input -->
+      <span class="wrapp__input area-address">
+        <input type="text" class="input" name="address" placeholder="endereço" tabindex="5">
+      </span><!-- wrapp__input -->
+      <span class="wrapp__input area-relationship">
+        <select name="relationship" class="input" required tabindex="3">
+          <option value="">estado civil</option>
+          <option value="Solteira" data-js="1">Solteira</option>
+          <option value="Casada" data-js="2">Casada</option>
+          <option value="Divorciada" data-js="3">Divorciada</option>
+          <option value="Viúva" data-js="4">Viúva</option>
+          <option value="Separada" data-js="5">Separada</option>
+        </select>
+      </span><!-- wrapp__input -->
+      <span class="wrapp__input area-birth">
+        <input type="date" class="input" name="birth" tabindex="4">
+      </span><!-- wrapp__input -->
+      <span class="wrapp__input area-phone">
+        <input placeholder="telefone" type="text" class="input" name="phone_1" onkeypress="mask(this, mphone);" onblur="mask(this, mphone);" dataTel tabindex="8"/>
+        <input placeholder="telefone" type="text" class="input" name="phone_2" onkeypress="mask(this, mphone);" onblur="mask(this, mphone);" dataTel tabindex="9"/>
+        <input placeholder="telefone" type="text" class="input" name="phone_3" onkeypress="mask(this, mphone);" onblur="mask(this, mphone);" dataTel tabindex="10"/>
+      </span><!-- wrapp__input -->
+      <span class="wrapp__input area-email">
+        <input type="email" class="input" name="email" placeholder="email" tabindex="6">
+      </span><!-- wrapp__input -->
+      <span class="wrapp__input area-cnh">
+        <input type="text" class="input" name="cnh" placeholder="cnh" tabindex="7">
+      </span><!-- wrapp__input -->
+      <span class="wrapp__input area-objective">
+        <input type="text" class="input" name="objective" placeholder="objetivo" tabindex="11">
+      </span><!-- wrapp__input -->
+      <span class="wrapp__input area-schoolTraining">
+        <input type="text" class="input" name="schoolTraining" placeholder="escolaridade" tabindex="12">
+      </span><!-- wrapp__input -->
+      <span class="wrapp__input area-schoolHigher">
+        <input type="text" class="input" name="schoolHigher" placeholder="ensino superior" tabindex="13">
+      </span><!-- wrapp__input -->
+      <span class="wrapp__input area-cursos">
+        <textarea class="input" name="Course1" rows="2" placeholder="curso 1" tabindex="14"></textarea>
+        <textarea class="input" name="Course2" rows="2" placeholder="curso 2" tabindex="15"></textarea>
+        <textarea class="input" name="Course3" rows="2" placeholder="curso 3" tabindex="16"></textarea>
+        <textarea class="input" name="Course4" rows="2" placeholder="curso 4" tabindex="17"></textarea>
+        <textarea class="input" name="Course5" rows="2" placeholder="curso 5" tabindex="18"></textarea>
+      </span><!-- wrapp__input -->
+      <span class="wrapp__input area-experience1">
+        <i class="title" >experiência profissional</i>
+        <input type="text" class="input" name="experience1_name" placeholder="empressa" tabindex="19">
+        <input type="text" class="input" name="experience1_function" placeholder="função" tabindex="20">
+        <input type="text" class="input" name="experience1_time" placeholder="periodo" tabindex="21">
+      </span><!-- wrapp__input -->
+      <span class="wrapp__input area-experience2">
+        <i class="title" >experiência profissional</i>
+        <input type="text" class="input" name="experience2_name" placeholder="empressa" tabindex="22">
+        <input type="text" class="input" name="experience2_function" placeholder="função" tabindex="23">
+        <input type="text" class="input" name="experience2_time" placeholder="periodo" tabindex="24">
+      </span><!-- wrapp__input -->
+      <span class="wrapp__input area-experience3">
+        <i class="title" >experiência profissional</i>
+        <input type="text" class="input" name="experience3_name" placeholder="empressa" tabindex="25">
+        <input type="text" class="input" name="experience3_function" placeholder="função" tabindex="26">
+        <input type="text" class="input" name="experience3_time" placeholder="periodo" tabindex="27">
+      </span><!-- wrapp__input -->
+      <span class="wrapp__input area-experience4">
+        <i class="title" >experiência profissional</i>
+        <input type="text" class="input" name="experience4_name" placeholder="empressa" tabindex="28">
+        <input type="text" class="input" name="experience4_function" placeholder="função" tabindex="29">
+        <input type="text" class="input" name="experience4_time" placeholder="periodo" tabindex="30">
+      </span><!-- wrapp__input -->
+      <span class="wrapp__input area-experience5">
+        <i class="title" >experiência profissional</i>
+        <input type="text" class="input" name="experience5_name" placeholder="empressa" tabindex="31">
+        <input type="text" class="input" name="experience5_function" placeholder="função" tabindex="32">
+        <input type="text" class="input" name="experience5_time" placeholder="periodo" tabindex="33">
+      </span><!-- wrapp__input -->
+      <span class="wrapp__input area-comments">
+        <i class="title" >observações</i>
+        <textarea class="input" name="comments" rows="3" data-js="comments" tabindex="34">Fácil adaptação, responsável, educada, simpática, com espírito de trabalho em equipe e aberto a novas experiências de acordo com os interesses da empresa.</textarea>
+      </span><!-- wrapp__input -->
+    
+      <button type="submit" class="area-send btn-submit">salvar</button>
+    </form>
+  </section>
+  <section class="previewCurriculum">
+
+    <article class="previewCurriculum__header">
+      <section class="previewCurriculum__header--dados">
+        <span class="previewCurriculum__header--nome" data-js="preview_nome"><div class="linear-background w250"></div></span>
+        <span class="text previewCurriculum__header--sobre">
+          <span data-js="preview_nationality">
+            <div class="linear-background w150"></div></span>, 
+            <span data-js="preview_relationship"><div class="linear-background w150"></div></span>, 
+            <span data-js="preview_birth"><div class="linear-background w150"></div></span>
+        </span>
+        <span class="text previewCurriculum__header--endereco" data-js="preview_address"><div class="linear-background w450"></div></span>
+        <span class="text previewCurriculum__header--fone">
+          <span data-js="preview_phone"><div class="linear-background w150"></div></span>
+        </span>
+        <span class="text previewCurriculum__header--email" data-js="preview_email"><div class="linear-background w250"></div></span>
+        <span class="text previewCurriculum__header--cnh" data-js="preview_cnh"><div class="linear-background w50"></div></span>
+      </section><!-- previewCurriculum__header--dados -->
+    <section class="previewCurriculum__header--photo">
+        <img src="" data-js="previewCurriculum" style="display: none;">
+        <div class="linear-background wPhoto" data-js="previewCurriculum--placeholder"></div>
+      </section>
+    </article><!-- previewCurriculum__header -->
+
+    <article class="previewCurriculum__objective">
+      <h1 class="previewCurriculum__area">objetivo</h1>
+    </article>
+    
+
+  </section>
+  <script src="/js/functions.js"></script>
+  <script src="/js/genero.js"></script>
+  <script src="/js/preview.js"></script>
+  <script src="/js/maskphone.js"></script>
+  <script src="/js/enterNext.js"></script>
+  <script>
+    
+  </script>
+  <!-- <script src="/js/curriculumPreview.js"></script> -->
+
+</body>
+</html>

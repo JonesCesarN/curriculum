@@ -1,0 +1,11 @@
+{
+  "[javascript]": {
+    "editor.formatOnSave": true
+},
+
+
+  "editor.fontSize": 13,
+  "editor.fontFamily": "JetBrains Mono, 'Courier New', monospace",
+  "editor.lineHeight": 1.1,
+  "editor.renderWhitespace": "all",
+}

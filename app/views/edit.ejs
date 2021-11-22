@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous">
+  <link rel="stylesheet" href="/css/style.css">
+  <title>curriculum</title>
+</head>
+<body>
+  <section>
+    <section class="genero area-genero">
+      <i class="fas fa-female <%- curriculum.relationship.slice(-1) == 'a'? 'select' : '' %> " data-js="female"> feminino</i>
+      <i class="fas fa-male <%- curriculum.relationship.slice(-1) == 'o'? 'select' : '' %>" data-js="male"> masculino</i>
+    </section>
+    <form action="/curriculo/update" method="POST" enctype="multipart/form-data">
+      <input type="hidden" name="id" value="<%- curriculum.id %>">
+      
+      <span class="wrapp__input area-nome">
+        <input required type="text" class="input" name="nome" data-js="nome" placeholder="nome completo" value="<%= curriculum.name %>">
+      </span><!-- wrapp__input -->     
+      <span class="wrapp__input area-nacionalidade">
+        <input type="text" class="input" name="nationality" placeholder="nacionalidade" value="<%= curriculum.nationality %>">
+      </span><!-- wrapp__input -->
+      <span class="wrapp__input area-relationship">
+        <select name="relationship" class="input">
+          <option>estado civil</option>
+          <%if (curriculum.relationship.slice(-1) == 'a') { %> 
+          <option value="Solteira" <%- curriculum.relationship == 'Solteira' ? 'selected' : '' %> data-js="1">Solteira</option>
+          <option value="Casada" <%- curriculum.relationship == 'Casada' ? 'selected' : '' %> data-js="2">Casada</option>
+          <option value="Divorciada" <%- curriculum.relationship == 'Divorciada' ? 'selected' : '' %> data-js="3">Divorciada</option>
+          <option value="Viúva" <%- curriculum.relationship == 'Viúva' ? 'selected' : '' %> data-js="4">Viúva</option>
+          <option value="Separada" <%- curriculum.relationship == 'Separada' ? 'selected' : '' %> data-js="5">Separada</option>
+          <%}%>
+
+          <%if (curriculum.relationship.slice(-1) == 'o') { %> 
+          <option value="Solteiro" <%- curriculum.relationship == 'Solteiro' ? 'selected' : '' %> data-js="1">Solteiro</option>
+          <option value="Casado" <%- curriculum.relationship == 'Casado' ? 'selected' : '' %> data-js="2">Casado</option>
+          <option value="Divorciado" <%- curriculum.relationship == 'Divorciado' ? 'selected' : '' %> data-js="3">Divorciado</option>
+          <option value="Viúvo" <%- curriculum.relationship == 'Viúvo' ? 'selected' : '' %> data-js="4">Viúvo</option>
+          <option value="Separado" <%- curriculum.relationship == 'Separado' ? 'selected' : '' %> data-js="5">Separado</option>
+          <%}%>
+
+        </select>
+      </span><!-- wrapp__input -->
+      <span class="wrapp__input area-birth">
+        <input type="date" class="input" name="birth" value="<%= curriculum.birth %>">
+      </span><!-- wrapp__input -->
+      <span class="wrapp__input area-address">
+        <input type="text" class="input" name="address" placeholder="endereço" value="<%= curriculum.address %>">
+      </span><!-- wrapp__input -->
+      <span class="wrapp__input area-email">
+        <input type="email" class="input" name="email" placeholder="email" value="<%= curriculum.email %>">
+      </span><!-- wrapp__input -->
+      <span class="wrapp__input area-cnh">
+        <input type="text" class="input" name="cnh" placeholder="cnh" value="<%= curriculum.cnh %>">
+      </span><!-- wrapp__input -->
+      
+      <span class="wrapp__input area-phone">
+        <input placeholder="telefone" type="text" class="input" name="phone_1" onkeypress="mask(this, mphone);" onblur="mask(this, mphone);" value="<%= curriculum.phone_1 %>"/>
+        <input placeholder="telefone" type="text" class="input" name="phone_2" onkeypress="mask(this, mphone);" onblur="mask(this, mphone);" value="<%= curriculum.phone_2 %>"/>
+        <input placeholder="telefone" type="text" class="input" name="phone_3" onkeypress="mask(this, mphone);" onblur="mask(this, mphone);" value="<%= curriculum.phone_3 %>"/>
+      </span><!-- wrapp__input -->
+      
+      <span class="wrapp__input area-objective">
+        <input type="text" class="input" name="objective" placeholder="objetivo" value="<%= curriculum.objective %>">
+      </span><!-- wrapp__input -->
+      <span class="wrapp__input area-schoolTraining">
+        <input type="text" class="input" name="schoolTraining" placeholder="escolaridade" value="<%= curriculum.schoolTraining %>">
+      </span><!-- wrapp__input -->
+      <span class="wrapp__input area-schoolHigher">
+        <input type="text" class="input" name="schoolHigher" placeholder="ensino superior" value="<%= curriculum.schoolHigher %>">
+      </span><!-- wrapp__input -->
+      <span class="wrapp__input area-cursos">
+        <textarea class="input" name="Course1" rows="2" placeholder="curso 1"><%= curriculum.Course1 %></textarea>
+        <textarea class="input" name="Course2" rows="2" placeholder="curso 2"><%= curriculum.Course2 %></textarea>
+        <textarea class="input" name="Course3" rows="2" placeholder="curso 3"><%= curriculum.Course3 %></textarea>
+        <textarea class="input" name="Course4" rows="2" placeholder="curso 4"><%= curriculum.Course4 %></textarea>
+        <textarea class="input" name="Course5" rows="2" placeholder="curso 5"><%= curriculum.Course5 %></textarea>
+      </span><!-- wrapp__input -->
+      <span class="wrapp__input area-experience1">
+        <i class="title" >experiência profissional</i>
+        <input type="text" class="input" name="experience1_name" placeholder="empressa" value="<%= curriculum.experience1_name %>">
+        <input type="text" class="input" name="experience1_function" placeholder="função" value="<%= curriculum.experience1_function %>">
+        <input type="text" class="input" name="experience1_time" placeholder="periodo" value="<%= curriculum.experience1_time %>">
+      </span><!-- wrapp__input -->
+      <span class="wrapp__input area-experience2">
+        <i class="title" >experiência profissional</i>
+        <input type="text" class="input" name="experience2_name" placeholder="empressa" value="<%= curriculum.experience2_name %>">
+        <input type="text" class="input" name="experience2_function" placeholder="função" value="<%= curriculum.experience2_function %>">
+        <input type="text" class="input" name="experience2_time" placeholder="periodo" value="<%= curriculum.experience2_time %>">
+      </span><!-- wrapp__input -->
+      <span class="wrapp__input area-experience3">
+        <i class="title" >experiência profissional</i>
+        <input type="text" class="input" name="experience3_name" placeholder="empressa" value="<%= curriculum.experience3_name %>">
+        <input type="text" class="input" name="experience3_function" placeholder="função" value="<%= curriculum.experience3_function %>">
+        <input type="text" class="input" name="experience3_time" placeholder="periodo" value="<%= curriculum.experience3_time %>">
+      </span><!-- wrapp__input -->
+      <span class="wrapp__input area-experience4">
+        <i class="title" >experiência profissional</i>
+        <input type="text" class="input" name="experience4_name" placeholder="empressa" value="<%= curriculum.experience4_name %>">
+        <input type="text" class="input" name="experience4_function" placeholder="função" value="<%= curriculum.experience4_function %>">
+        <input type="text" class="input" name="experience4_time" placeholder="periodo" value="<%= curriculum.experience4_time %>">
+      </span><!-- wrapp__input -->
+      <span class="wrapp__input area-experience5">
+        <i class="title" >experiência profissional</i>
+        <input type="text" class="input" name="experience5_name" placeholder="empressa" value="<%= curriculum.experience5_name %>">
+        <input type="text" class="input" name="experience5_function" placeholder="função" value="<%= curriculum.experience5_function %>">
+        <input type="text" class="input" name="experience5_time" placeholder="periodo" value="<%= curriculum.experience5_time %>">
+      </span><!-- wrapp__input -->
+      <span class="wrapp__input area-comments">
+        <i class="title" >observações</i>
+        <textarea class="input" name="comments" rows="3" data-js="comments"><%= curriculum.comments %></textarea>
+      </span><!-- wrapp__input -->
+    <span class="wrapp__input area-foto">
+        <% if(curriculum.photo) { %>
+          <input type="hidden" name="photoatual" data-js="photoatual" value="<%- curriculum.photo %>">
+          <input type="hidden" name="photoacao" data-js="photoacao" value="igual">
+        <% } %>
+        <div class="form-group" data-js="inputFile" <%- curriculum.photo ? 'style="display:none"' : '' %> >
+          <span class="fileUpload btn btn-success">
+            <span class="upl" >Upload Foto</span>
+            <input type="file" class="upload up" id="up" name="photo" data-js="fileUp"/>
+          </span>
+        </div>
+        <img src="/uploadCurriculum/<%- curriculum.photo %>" data-js="Preview" class="preview" <%- curriculum.photo ? 'style="display:flex"' : 'style="display:none"' %> >
+        <div class="icone--remove" data-js="remove-preview" <%- curriculum.photo ? 'style="display:flex"' : 'style="display:none"' %> >
+          <i class="fas fa-minus-square" data-js="btn-remover"> remover foto</i>
+        </div>
+      </span><!-- wrapp__input -->
+      <button type="submit" class="area-send btn-submit">salvar</button>
+    </form>
+  </section>
+  <section class="previewCurriculum">
+
+    <article class="previewCurriculum__header">
+      <section class="previewCurriculum__header--dados">
+        <span class="previewCurriculum__header--nome" data-js="preview_nome"><div class="linear-background w250"></div></span>
+        <span class="text previewCurriculum__header--sobre">
+          <span data-js="preview_nationality">
+            <div class="linear-background w150"></div></span>, 
+            <span data-js="preview_relationship"><div class="linear-background w150"></div></span>, 
+            <span data-js="preview_birth"><div class="linear-background w150"></div></span>
+        </span>
+        <span class="text previewCurriculum__header--endereco" data-js="preview_address"><div class="linear-background w450"></div></span>
+        <span class="text previewCurriculum__header--fone">
+          <span data-js="preview_phone"><div class="linear-background w150"></div></span>
+        </span>
+        <span class="text previewCurriculum__header--email" data-js="preview_email"><div class="linear-background w250"></div></span>
+        <span class="text previewCurriculum__header--cnh" data-js="preview_cnh"><div class="linear-background w50"></div></span>
+      </section><!-- previewCurriculum__header--dados -->
+    <section class="previewCurriculum__header--photo">
+        <img src="" data-js="previewCurriculum" style="display: none;">
+        <div class="linear-background wPhoto" data-js="previewCurriculum--placeholder"></div>
+      </section>
+    </article><!-- previewCurriculum__header -->
+
+    <article class="previewCurriculum__objective">
+      <h1 class="previewCurriculum__area">objetivo</h1>
+    </article>
+    
+
+  </section>
+  <span data-js="edit" style="display: none;"></span>
+  <script src="/js/functions.js"></script>
+  <script src="/js/genero.js"></script>
+  <script src="/js/preview.js"></script>
+  <script src="/js/maskphone.js"></script>
+  <script src="/js/enterNext.js"></script>
+  <!-- <script src="/js/curriculumPreview.js"></script> -->
+
+</body>
+</html>

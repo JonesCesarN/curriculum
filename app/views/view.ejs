@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="/css/curriculum.css" />
+</head>
+<style>
+  .pdf {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    gap: 10px;
+  }
+
+  .pdf button {
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    background: transparent;
+    align-items: center;
+    border: none;
+  }
+
+  .pdf a {
+    padding: 10px 30px;
+    text-decoration: none;
+    color: black;
+    background: rgb(255, 187, 0);
+    text-transform: uppercase;
+    border-radius: 10px;
+    font-weight: 700;
+    display: flex;
+    gap: 30px;
+    align-items: center;
+  }
+
+  .atalho {
+    border: 2px solid rgba(0, 0, 0, 0.459);
+    padding: 5px;
+    border-radius: 50%;
+  }
+
+  .noPrint {
+    padding: 20px;
+  }
+
+  @media print {
+    .pdf {
+      display: none;
+    }
+  }
+</style>
+
+<body>
+  <section class="pdf">
+    <button>
+      <a onclick="imprimir()" data-print>imprimir <span class="atalho">1</span></a>
+
+    </button>
+    <button>
+      <a href="/curriculo/pdf/<%= curriculum.id %>" data-pdf>Abrir em PDF <span class="atalho">2</span></a>
+    </button>
+  </section>
+  <%if(curriculum){%>
+  <div class="container">
+    <div class="curriculum__header">
+      <div class="curriculum__dados">
+        <div class="curriculum__infos">
+          <h1 class="curriculum__title">
+            <%= curriculum.name %>
+          </h1>
+          <div>
+            <p class="curriculum__text" style="text-transform: capitalize;">
+              <%= curriculum.nationality %>
+            </p>
+            ,
+            <p class="curriculum__text">
+              <%= curriculum.relationship %>
+            </p>
+            , <% if(curriculum.relationship=='Solteiro' || curriculum.relationship=='Casado' ||
+                curriculum.relationship=='Divorciado' || curriculum.relationship=='Viúvo' ||
+                curriculum.relationship=='Separado' ){ %>
+            <p class="curriculum__text">
+              Nascido em <%= moment(curriculum.birth).format('DD/MM/YYYY') %>
+            </p>
+            <% } %>
+            <% if(curriculum.relationship=='Solteira' || curriculum.relationship=='Casada' ||
+                    curriculum.relationship=='Divorciada' || curriculum.relationship=='Viúva' ||
+                    curriculum.relationship=='Separada' ){ %>
+            <p class="curriculum__text">
+              Nascida em <%= moment(curriculum.birth).format('DD/MM/YYYY') %>
+            </p>
+            <% } %>
+          </div>
+          <div>
+            <p class="curriculum__text">
+              <%= curriculum.address %>
+            </p>
+          </div>
+          <div>
+            <% if(curriculum.phone_1 !='' ) { %>
+            <p class="curriculum__text">Fone: <%= curriculum.phone_1 %>
+            </p>
+            <% } %>
+            <% if(curriculum.phone_2 !='' ) { %>
+            <p class="curriculum__text">/ <%= curriculum.phone_2 %>
+            </p>
+            <% } %>
+            <% if(curriculum.phone_3 !='' ) { %>
+            <p class="curriculum__text">/ <%= curriculum.phone_3 %>
+            </p>
+            <% } %>
+          </div>
+          <div>
+            <% if(curriculum.email !='' ) { %>
+            <p class="curriculum__text">Email: <%= curriculum.email %>
+            </p>
+            <% } %>
+          </div>
+          <div>
+            <% if(curriculum.cnh !='' ) { %>
+            <p class="curriculum__text">CNH: <%= curriculum.cnh %>
+            </p>
+            <% } %>
+          </div>
+        </div>
+        <% if(curriculum.photo) { %>
+        <div class="curriculum__photo">
+          <img src="/uploadCurriculum/<%= curriculum.photo %>" style="width: 100%" />
+        </div>
+        <% } %>
+      </div>
+    </div>
+    <div class="curriculum__body">
+      <% if(curriculum.objective) { %>
+      <div class="curriculum__objective">
+        <h2 class="curriculum__subtitle">objetivo</h2>
+
+        <div>
+          <p class="curriculum__text">
+            <%= curriculum.objective %>
+          </p>
+        </div>
+      </div>
+      <% } %>
+
+      <% if(curriculum.schoolTraining || curriculum.schoolHigher) { %>
+      <div class="curriculum__school">
+        <h2 class="curriculum__subtitle">formação escolar</h2>
+
+        <% if(curriculum.schoolTraining) { %>
+        <div>
+          <p class="curriculum__text">
+            <%= curriculum.schoolTraining %>
+          </p>
+        </div>
+        <% } %>
+
+        <% if(curriculum.schoolHigher) { %>
+        <div>
+          <p class="curriculum__text">
+            <%= curriculum.schoolHigher %>
+          </p>
+        </div>
+        <% } %>
+
+      </div>
+      <% } %>
+
+      <% if( curriculum.Course1 || curriculum.Course2 || curriculum.Course3 || curriculum.Course4 ||
+                  curriculum.Course5) { %>
+      <div class="curriculum__course">
+        <h2 class="curriculum__subtitle">cursos</h2>
+        <% if(curriculum.Course1) { %>
+        <div>
+          <p class="curriculum__text">
+            <%= curriculum.Course1 %>
+          </p>
+        </div>
+        <% } %>
+
+        <% if(curriculum.Course2) { %>
+        <div>
+          <p class="curriculum__text">
+            <%= curriculum.Course2 %>
+          </p>
+        </div>
+        <% } %>
+
+        <% if(curriculum.Course3) { %>
+        <div>
+          <p class="curriculum__text">
+            <%= curriculum.Course3 %>
+          </p>
+        </div>
+        <% } %>
+
+        <% if(curriculum.Course4) { %>
+        <div>
+          <p class="curriculum__text">
+            <%= curriculum.Course4 %>
+          </p>
+        </div>
+        <% } %>
+
+        <% if(curriculum.Course5) { %>
+        <div>
+          <p class="curriculum__text">
+            <%= curriculum.Course5 %>
+          </p>
+        </div>
+        <% } %>
+
+      </div>
+      <% } %>
+
+      <% if( curriculum.experience1_name || curriculum.experience2_name || curriculum.experience3_name ||
+                      curriculum.experience4_name || curriculum.experience5_name ) { %>
+      <div class="curriculum__experience">
+        <h2 class="curriculum__subtitle">histórico profissional</h2>
+        <% if (curriculum.experience1_name) { %>
+        <div>
+          <p class="curriculum__text bold block">
+            <%= curriculum.experience1_name %>
+          </p>
+          <% if(curriculum.experience1_function) { %>
+          <p class="curriculum__text block">
+            Função: <%= curriculum.experience1_function %>
+          </p>
+          <%}%>
+          
+          <% if(curriculum.experience1_time) { %>
+          <p class="curriculum__text block">
+            Periodo: <%= curriculum.experience1_time %>
+          </p>
+          <%}%>
+          
+        </div>
+        <% } %>
+
+          <% if(curriculum.experience2_name) { %>
+          <div>
+            <p class="curriculum__text bold block">
+              <%= curriculum.experience2_name %>
+            </p>
+            <% if(curriculum.experience2_function) { %>
+            <p class="curriculum__text block">
+              Função: <%= curriculum.experience2_function %>
+            </p>
+            <%}%>
+            <% if(curriculum.experience2_time) { %>
+            <p class="curriculum__text block">
+              Periodo: <%= curriculum.experience2_time %>
+            </p>
+            <%}%>
+          
+          </div>
+          <% } %>
+
+            <% if(curriculum.experience3_name) { %>
+            <div>
+              <p class="curriculum__text bold block">
+                <%= curriculum.experience3_name %>
+              </p>
+              <% if(curriculum.experience3_function) { %>
+              <p class="curriculum__text block">
+                Função: <%= curriculum.experience3_function %>
+              </p>
+              <%}%>
+              <% if(curriculum.experience3_time) { %>
+              <p class="curriculum__text block">
+                Periodo: <%= curriculum.experience3_time %>
+              </p>
+              <%}%>
+          
+            </div>
+
+            <% } %>
+
+              <% if(curriculum.experience4_name) { %>
+              <div>
+                <p class="curriculum__text bold block">
+                  <%= curriculum.experience4_name %>
+                </p>
+                <% if(curriculum.experience4_function) { %>
+                <p class="curriculum__text block">
+                  Função: <%= curriculum.experience4_function %>
+                </p>
+                <%}%>
+                <% if(curriculum.experience4_time) { %>
+                <p class="curriculum__text block">
+                  Periodo: <%= curriculum.experience4_time %>
+                </p>
+                <%}%>
+          
+              </div>
+
+              <% } %>
+                <% if(curriculum.experience5_name) { %>
+                <div>
+                  <p class="curriculum__text bold block">
+                    <%= curriculum.experience5_name %>
+                  </p>
+                  <% if(curriculum.experience5_function) { %>
+                  <p class="curriculum__text block">
+                    Função: <%= curriculum.experience5_function %>
+                  </p>
+                  <%}%>
+                  <% if(curriculum.experience5_time) { %>
+                  <p class="curriculum__text block">
+                    Periodo: <%= curriculum.experience5_time %>
+                  </p>
+                  <%}%>
+          
+                </div>
+
+                <% } %>
+                </div>
+                <% } %>
+
+                <% if(curriculum.comments !='' ) { %>
+                <div class="curriculum__comments">
+                  <h2 class="curriculum__subtitle">observação</h2>
+
+                  <p class="curriculum__text">
+                    <%= curriculum.comments %>
+                  </p>
+
+                </div>
+                <% } %>
+              </div>
+            </div>
+            <%}%>
+            <script>
+              const imprimir = () => {
+                console.log('a')
+                window.print()
+              }
+              window.addEventListener('keypress', e => {
+                if(event.which == 50){
+                  document.querySelector('[data-pdf]').click()
+                }
+                if(event.which == 49){
+                  document.querySelector('[data-print]').click()
+                }
+              })
+            </script>
+</body>
+
+</html>
