@@ -1,26 +1,24 @@
-const Curriculum = require('../controllers/curriculum.controller');
-const { upload } = require('../middlewares/upload');
-const { deleteFile } = require('../functions/deletePhoto');
-const moment = require('moment');
-const { __DOMAIN } = require('../config/config');
-const puppeteer = require('puppeteer');
-const { printERRO } = require('../functions/err');
+const Curriculum = require("../controllers/curriculum.controller");
+const { upload } = require("../middlewares/upload");
+const { deleteFile } = require("../functions/deletePhoto");
+const moment = require("moment");
+const { __DOMAIN } = require("../config/config");
+const puppeteer = require("puppeteer");
+const { printERRO } = require("../functions/err");
 
 module.exports = (app, rota) => {
   app.get(rota, async (req, res) => {
-    res.render('index');
+    res.render("index");
   });
 
   app.get(`${rota}/new`, (req, res) => {
-    res.render('new');
+    res.render("new");
   });
 
-  app.post(`${rota}/save`, upload.single('photo'), async (req, res) => {
-    
-
-    let phone_1 = req.body.phone_1 == '(' ? '' : req.body.phone_1
-    let phone_2 = req.body.phone_2 == '(' ? '' : req.body.phone_2
-    let phone_3 = req.body.phone_3 == '(' ? '' : req.body.phone_3
+  app.post(`${rota}/save`, upload.single("photo"), async (req, res) => {
+    let phone_1 = req.body.phone_1 == "(" ? "" : req.body.phone_1;
+    let phone_2 = req.body.phone_2 == "(" ? "" : req.body.phone_2;
+    let phone_3 = req.body.phone_3 == "(" ? "" : req.body.phone_3;
     var data = {
       id: req.body.id,
       name: req.body.nome,
@@ -59,8 +57,8 @@ module.exports = (app, rota) => {
       comments: req.body.comments,
     };
     if (req.file) data.photo = req.file.filename;
-    const create = await Curriculum.create(data);
-    res.redirect(`/curriculo/view/${create.id}`);
+    const curriculum = await Curriculum.create(data);
+    res.render(`views`, { curriculum, moment });
   });
 
   app.get(`${rota}/search/:nome`, async (req, res) => {
@@ -75,7 +73,7 @@ module.exports = (app, rota) => {
       res.status(400).send({ error: `ID: ${id} invalido` });
     }
     const curriculum = await Curriculum.byID(id);
-    if (curriculum) res.render('view', { curriculum, moment });
+    if (curriculum) res.render("view", { curriculum, moment });
     else res.status(400).send({ error: `ID: ${id} não existe` });
   });
 
@@ -85,14 +83,13 @@ module.exports = (app, rota) => {
       res.status(400).send({ error: `ID: ${id} invalido` });
     }
     const curriculum = await Curriculum.byID(id);
-    res.render('edit', { curriculum, moment });
+    res.render("edit", { curriculum, moment });
   });
 
-  app.post(`${rota}/update`, upload.single('photo'), async (req, res) => {
-
-    let phone_1 = req.body.phone_1 == '(' ? '' : req.body.phone_1
-    let phone_2 = req.body.phone_2 == '(' ? '' : req.body.phone_2
-    let phone_3 = req.body.phone_3 == '(' ? '' : req.body.phone_3
+  app.post(`${rota}/update`, upload.single("photo"), async (req, res) => {
+    let phone_1 = req.body.phone_1 == "(" ? "" : req.body.phone_1;
+    let phone_2 = req.body.phone_2 == "(" ? "" : req.body.phone_2;
+    let phone_3 = req.body.phone_3 == "(" ? "" : req.body.phone_3;
 
     var data = {
       id: req.body.id,
@@ -132,11 +129,11 @@ module.exports = (app, rota) => {
       comments: req.body.comments,
     };
     if (req.body.photoatual) {
-      if (req.body.photoacao == 'delet') {
+      if (req.body.photoacao == "delet") {
         deleteFile(`./app/public/uploadCurriculum/${req.body.photoatual}`);
-        data.photo = '';
+        data.photo = "";
       }
-      if (req.body.photoacao == 'alterado') {
+      if (req.body.photoacao == "alterado") {
         deleteFile(`./app/public/uploadCurriculum/${req.body.photoatual}`);
       }
     }
@@ -160,7 +157,7 @@ module.exports = (app, rota) => {
           res.json({ erro: `ID: ${id} não encontrado!` });
         }
       } catch (err) {
-        printERRO('DELETE', err);
+        printERRO("DELETE", err);
       }
     }
   });
@@ -171,19 +168,19 @@ module.exports = (app, rota) => {
     const page = await browser.newPage();
 
     await page.goto(`${__DOMAIN}/curriculo/view/${id}`, {
-      waitUntil: 'networkidle0',
+      waitUntil: "networkidle0",
     });
-    const path = require('path');
+    const path = require("path");
     const curriculum = await Curriculum.byID(id);
-    const nome = curriculum.name.replace(/[" "]/g, '-');
+    const nome = curriculum.name.replace(/[" "]/g, "-");
     const pdf = await page.pdf({
       printBackground: true,
       // path: path.join(__dirname, `../public/temp/${nome}-${Date.now()}.pdf`),
-      format: 'A4',
+      format: "A4",
     });
     await browser.close();
 
-    res.contentType('application/pdf');
+    res.contentType("application/pdf");
 
     return res.send(pdf);
   });
