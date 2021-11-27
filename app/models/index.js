@@ -15,5 +15,6 @@ db.Sequelize = Sequelize;
 db.sequelize = sequelize;
 
 db.curriculum = require("./curriculum.model")(sequelize, Sequelize);
+db.eventos_curriculum = require("./eventosCurriculum.model")(sequelize, Sequelize);
 
 module.exports = db;
