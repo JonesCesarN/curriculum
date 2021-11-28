@@ -1,9 +1,9 @@
-const { curriculum } = require("../models");
 const moment = require("moment");
 const { Curriculum_create, Curriculum_byID, Curriculum_update, Curriculum_delete, Curriculum_search, Curriculum_findAll } = require("../services/curriculum.service");
 const { __DOMAIN } = require("../config/config");
 const { deleteFile } = require("../functions/deletePhoto");
 const { printERRO } = require("../functions/err");
+const { EventosCurriculum_create } = require("../services/eventosCurriculum.service");
 
 exports.curriculum_render_index = async (req, res) => {
   res.render("index");
@@ -56,6 +56,14 @@ exports.curriculum_save = async (req, res) => {
   };
   if (req.file) data.photo = req.file.filename;
   const curriculum = await Curriculum_create(data);
+  const newEvent = {
+    codigo: curriculum.id,
+    nome: curriculum.name,
+    evento: "novo",
+    date: moment(new Date()).format("DD-MM-YYYY"),
+    hora: moment(new Date()).format("HH:mm:ss"),
+  };
+  await EventosCurriculum_create(newEvent);
   res.redirect(`${__DOMAIN}/curriculo/view/${curriculum.id}`);
 };
 
@@ -90,11 +98,14 @@ exports.curriculum_update = async (req, res) => {
     }
 
     if (editExperience) {
-      console.log({ edicao: "alteração em experiencia" });
-      return true;
-    } else {
-      console.log({ edicao: "sem alteração em experiencia" });
-      return false;
+      const newEvent = {
+        codigo: req.body.id,
+        nome: req.body.nome,
+        evento: "editado",
+        date: moment(new Date()).format("DD-MM-YYYY"),
+        hora: moment(new Date()).format("HH:mm:ss"),
+      };
+      return await EventosCurriculum_create(newEvent);
     }
   }
 
@@ -181,7 +192,7 @@ exports.curriculum_search = async (req, res) => {
   res.json(result);
 };
 
-exports.curriculum_findAll = async () => {
+exports.curriculum_findAll = async (req, res) => {
   const AllCurriculos = await Curriculum_findAll();
   res.json(AllCurriculos.length);
 };
