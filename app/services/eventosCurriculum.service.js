@@ -31,7 +31,7 @@ exports.EventosCurriculum_getDay = async (date) => {
   try {
     return await eventos_curriculum.findAll({
       raw: true,
-      where: { date },
+      where: { date, status: "aberto" },
     });
   } catch (err) {
     return { erro: true, dev: "ERRO EventosCurriculum_getDay: ", message: err };
