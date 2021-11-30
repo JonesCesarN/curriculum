@@ -7,6 +7,8 @@ module.exports = (sequelize, DataTypes) => {
       evento: DataTypes.STRING,
       date: DataTypes.STRING,
       hora: DataTypes.STRING,
+      status: DataTypes.STRING,
+      fechamento: DataTypes.STRING,
     },
     { timestamps: false }
   );

@@ -24,7 +24,7 @@ const init = async () => {
   app.use(express.json());
   app.use(express.urlencoded({ extended: true }));
 
-  db.sequelize.sync().then(async () => {
+  db.sequelize.sync({ alter: true }).then(async () => {
     console.log("Banco ok");
     module.exports = { io };
     require("./routes/curriculum.routes")(app, "/curriculo");
@@ -40,13 +40,7 @@ const init = async () => {
   http.listen(__PORT, (err) => {
     if (err) require("./functions/err")("iniciar servidor", err);
     else {
-      console.log(
-        "listen " +
-          moment(new Date()).format("DD/MM/YYYY HH:mm:ss") +
-          "\nhttp://localhost:" +
-          __PORT +
-          "/curriculo"
-      );
+      console.log("listen " + moment(new Date()).format("DD/MM/YYYY HH:mm:ss") + "\nhttp://localhost:" + __PORT + "/curriculo");
     }
   });
 };
