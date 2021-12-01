@@ -13,7 +13,7 @@ exports.EventosCurriculum_create = async (data) => {
     });
     //
   } catch (err) {
-    return { erro: true, dev: "ERRO NovoCurriculum_create: ", message: err };
+    return { erro: true, dev: "ERRO EventosCurriculum_create: ", message: err };
   }
 };
 
