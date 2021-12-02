@@ -23,7 +23,7 @@ exports.eventosCurriculum_getDay = async (req, res) => {
 
   // console.log(curriculosNovos);
   // console.log(curriculosEdit);
-  res.json({ curriculosNovos, curriculosEdit });
+  res.json({ curriculosNovos, curriculosEdit, result });
 };
 
 exports.eventosCurriculum_update = async (req, res) => {
