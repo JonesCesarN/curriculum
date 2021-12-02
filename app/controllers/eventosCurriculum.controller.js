@@ -13,6 +13,7 @@ exports.eventosCurriculum_getDay = async (req, res) => {
   const result = await EventosCurriculum_getDay(date);
   if (result.length > 5) {
     let last6eventCurriculos = result.slice(result.length - 6);
+
     res.json({ result: last6eventCurriculos });
   } else {
     res.json({ result });
