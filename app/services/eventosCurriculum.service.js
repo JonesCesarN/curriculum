@@ -27,6 +27,16 @@ exports.EventosCurriculum_search = async (date) => {
   }
 };
 
+exports.EventosCurriculum_allAberto = async () => {
+  try {
+    return await eventos_curriculum.findAll({
+      where: { status: "aberto" },
+    });
+  } catch (err) {
+    return { erro: true, dev: "ERRO EventosCurriculum_allAberto: ", message: err };
+  }
+};
+
 exports.EventosCurriculum_getDay = async (date) => {
   try {
     return await eventos_curriculum.findAll({

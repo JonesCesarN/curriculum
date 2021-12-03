@@ -1,4 +1,4 @@
-const { EventosCurriculum_search, EventosCurriculum_getDay, EventosCurriculum_update } = require("../services/eventosCurriculum.service");
+const { EventosCurriculum_search, EventosCurriculum_getDay, EventosCurriculum_update, EventosCurriculum_allAberto } = require("../services/eventosCurriculum.service");
 const moment = require("moment");
 exports.eventosCurriculum_search = async (req, res) => {
   let search = req.params.search;
@@ -24,5 +24,10 @@ exports.eventosCurriculum_update = async (req, res) => {
   let date = moment(new Date()).format("DD-MM-YYYY HH:mm:ss");
   const id = req.params.id;
   const result = await EventosCurriculum_update(id, date);
+  res.json(result);
+};
+
+exports.eventosCurriculum_allAberto = async (req, res) => {
+  const result = await EventosCurriculum_allAberto();
   res.json(result);
 };
