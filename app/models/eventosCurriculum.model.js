@@ -9,6 +9,7 @@ module.exports = (sequelize, DataTypes) => {
       hora: DataTypes.STRING,
       status: DataTypes.STRING,
       fechamento: DataTypes.STRING,
+      registro_id: DataTypes.STRING,
     },
     { timestamps: false }
   );

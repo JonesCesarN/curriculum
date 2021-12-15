@@ -1,6 +1,6 @@
 const { upload } = require("../middlewares/upload");
 const { curriculum_save, curriculum_byID, curriculum_render_new, curriculum_edit, curriculum_update, curriculum_render_index, curriculum_delete, curriculum_search, curriculum_findAll, pagseguro } = require("../controllers/curriculum.controller");
-const { eventosCurriculum_search, eventosCurriculum_getDay, eventosCurriculum_update, eventosCurriculum_allAberto } = require("../controllers/eventosCurriculum.controller");
+const { eventosCurriculum_search, eventosCurriculum_getDay, eventosCurriculum_update, eventosCurriculum_allAberto, eventosCurriculum_save_registroID, eventosCurriculum_findAll_registroID } = require("../controllers/eventosCurriculum.controller");
 
 module.exports = (app, rota) => {
   app.get(rota, curriculum_render_index);
@@ -18,4 +18,7 @@ module.exports = (app, rota) => {
   app.get(`${rota}/eventosSearch`, eventosCurriculum_getDay);
   app.get(`${rota}/eventosAllAberto`, eventosCurriculum_allAberto);
   app.get(`${rota}/eventosUpdate/:id`, eventosCurriculum_update);
+
+  app.get(`${rota}/saveServicoId`, eventosCurriculum_save_registroID);
+  app.get(`${rota}/findAllServicoId`, eventosCurriculum_findAll_registroID);
 };

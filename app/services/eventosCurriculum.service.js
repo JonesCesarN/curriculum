@@ -68,3 +68,28 @@ exports.EventosCurriculum_update = async (id, date) => {
     return { erro: true, dev: "ERRO EventosCurriculum_update: ", message: err };
   }
 };
+
+exports.EventosCurriculum_save_registroID = async (id, registro_id) => {
+  try {
+    const instance = await this.EventosCurriculum_byID(id);
+    instance.registro_id = registro_id;
+    await instance.save();
+    await instance.reload();
+    return instance;
+  } catch (err) {
+    return { erro: true, dev: "ERRO EventosCurriculum_save_registroID: ", message: err };
+  }
+};
+
+exports.EventosCurriculum_findAll_registroID = async (registro_id) => {
+  try {
+    return await eventos_curriculum.findAll({
+      raw: true,
+      where: { registro_id },
+    });
+  } catch (err) {
+    return { erro: true, dev: "ERRO EventosCurriculum_findAll_registroID: ", message: err };
+  }
+};
+
+// registro_id: DataTypes.STRING,
